@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santhosh Kumar D | Robotics & Automation</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --white: #ffffff;
+  --bg: #f7f6f2;
+  --surface: #ffffff;
+  --border: #e0ddd6;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #2c4a7c;
+  --accent-light: #edf0f7;
+  --serif: 'EB Garamond', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(247,246,242,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+.nav-name {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--text); }
+.hamburger { display: none; background: none; border: none; cursor: pointer; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text); margin: 5px 0; }
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 48px;
+  gap: 16px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* LAYOUT */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* HERO / ABOUT */
+#about {
+  padding: 48px 0 40px;
+}
+.about-inner {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+.about-photo {
+  flex-shrink: 0;
+  width: 280px;
+  margin-left: -8px;
+}
+.about-photo img {
+  width: 280px;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  border: 1px solid var(--border);
+}
+.photo-placeholder {
+  width: 280px;
+  height: 340px;
+  background: #e8e6e0;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+  border: 1px solid var(--border);
+  cursor: default;
+}
+.photo-placeholder svg { width: 36px; height: 36px; stroke: #bbb; }
+.about-text { flex: 1; min-width: 0; }
+.name-heading {
+  font-family: var(--serif);
+  font-size: 2.8rem;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.tagline {
+  font-size: 1.1rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 24px;
+  letter-spacing: 0.01em;
+}
+.about-body {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.85;
+  margin-bottom: 28px;
+}
+.contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.contact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 6px 16px;
+  background: var(--surface);
+  transition: border-color 0.15s, color 0.15s;
+}
+.contact-pill:hover { border-color: var(--accent); color: var(--accent); }
+.contact-pill svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+/* SECTION COMMON */
+section {
+  padding: 60px 0;
+  border-top: 1px solid var(--border);
+}
+.section-label {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  color: var(--muted);
+  margin-bottom: 36px;
+}
+
+/* EXPERIENCE */
+.exp-item {
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+.exp-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.exp-header { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 4px; }
+.exp-role {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--text);
+}
+.exp-date {
+  font-size: 0.9rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.exp-company {
+  font-size: 1rem;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.exp-list {
+  list-style: none;
+  padding: 0;
+}
+.exp-list li {
+  font-size: 1rem;
+  color: var(--muted);
+  padding: 4px 0 4px 20px;
+  position: relative;
+  line-height: 1.8;
+}
+.exp-list li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: #bbb;
+}
+
+/* PROJECTS */
+.project-item {
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--border);
+}
+.project-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.project-num {
+  font-size: 0.82rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.project-name {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.project-desc {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+.media-sub-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin: 24px 0 10px;
+}
+.media-caption {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-top: 10px;
+  padding-left: 2px;
+}
+.media-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+.media-slot {
+  position: relative;
+  border: 1px dashed var(--border);
+  border-radius: 4px;
+  min-height: 160px;
+  overflow: hidden;
+  cursor: default;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.media-slot img, .media-slot video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  position: absolute; inset: 0;
+}
+.add-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  pointer-events: none;
+}
+.add-hint svg { width: 24px; height: 24px; stroke: #bbb; }
+.add-hint span { font-size: 0.78rem; }
+
+/* ACHIEVEMENTS */
+.achievement-item {
+  margin-bottom: 52px;
+  padding-bottom: 52px;
+  border-bottom: 1px solid var(--border);
+}
+.achievement-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.ach-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.ach-desc {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 18px;
+}
+.ach-img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  display: block;
+  margin-top: 4px;
+}
+/* CONTACT */
+#contact { text-align: left; }
+.contact-heading {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.contact-text {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 28px;
+  max-width: 560px;
+}
+.contact-links-big {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.contact-link-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 1rem;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.contact-link-row:hover { color: var(--accent); }
+.contact-link-row svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--muted); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* RESPONSIVE */
+@media (max-width: 680px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hamburger { display: block; }
+  .container { padding: 0 20px; }
+  #about { padding: 48px 0 40px; }
+  .about-inner { flex-direction: column; gap: 32px; }
+  .about-photo { width: 100%; }
+  .about-photo img, .photo-placeholder { width: 100%; height: 200px; }
+  .name-heading { font-size: 2rem; }
+  .mobile-menu { padding: 16px 20px; }
+  .media-grid { grid-template-columns: 1fr; }
+  .exp-header { flex-direction: column; gap: 2px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#about" class="nav-name">Santhosh Kumar D</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
+  <a href="#experience" onclick="document.getElementById('mobileMenu').classList.remove('open')">Experience</a>
+  <a href="#projects" onclick="document.getElementById('mobileMenu').classList.remove('open')">Projects</a>
+  <a href="#achievements" onclick="document.getElementById('mobileMenu').classList.remove('open')">Achievements</a>
+  <a href="#contact" onclick="document.getElementById('mobileMenu').classList.remove('open')">Contact</a>
+</div>
+
+<!-- ABOUT -->
+<section id="about" style="border-top: none;">
+  <div class="container">
+    <div class="about-inner">
+
+      <div class="about-photo">
+        <img src="D:\NEW VOLUME D\Portfolio\Photograph 1.jpeg" alt="Santhosh Kumar D">
+      </div>
+
+      <div class="about-text">
+        <h1 class="name-heading">Santhosh Kumar D</h1>
+        <p class="tagline">Robotics &amp; Automation Engineering Student</p>
+        <p class="about-body">
+          Final year Robotics and Automation student focusing on working with Autonomous systems, Embedded hardware and Computer Vision. Hands on experience in autonomous drones and computer vision applications. Currently focusing on applying my skills and knowledge in real world tasks.
+        </p>
+        <div class="contact-row">
+          <a href="mailto:dsanthoshkumaroff@gmail.com" class="contact-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            dsanthoshkumaroff@gmail.com
+          </a>
+          <a href="tel:+918220999104" class="contact-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 10.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 0h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l.77-.77a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            +91 82209 99104
+          </a>
+          <a href="https://www.linkedin.com/in/santhosh-kumar-d-457bb131b/" target="_blank" class="contact-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+          <a href="https://github.com/Santhoshkumar-44" target="_blank" class="contact-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label">Experience</p>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-role">Intern</span>
+        <span class="exp-date">June 2025 – July 2025</span>
+      </div>
+      <div class="exp-company">Kansai Nerolac Paints Ltd · Hosur, India</div>
+      <ul class="exp-list">
+        <li>Analysed the application of automation technologies including PLCs, HMIs, SCADA systems, and industrial robot manipulators within the paint production process.</li>
+        <li>Observed maintenance and troubleshooting protocols for automated machinery, with respect to safety and operational efficiency.</li>
+        <li>Gained hands-on exposure to real-world industrial automation environments and production-line workflows.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-role">Intern</span>
+        <span class="exp-date">March 2026 – Present</span>
+      </div>
+      <div class="exp-company">SRM Group of Institutions (Research)</div>
+      <ul class="exp-list">
+        <li>Working on Warehouse and Plant Simulation models for Motherson group.</li>
+        <li>Simulated multiple warehouse operations and plant layouts in Anylogic software.</li>
+      </ul>
+    </div>	
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label">Projects</p>
+
+    <!-- Project 1: Autonomous Drone (expanded) -->
+    <div class="project-item">
+      <p class="project-num">01</p>
+      <h3 class="project-name">Autonomous Drone</h3>
+      <p class="project-desc">
+        Designed and implemented autonomous drone systems using Pixhawk, GPS, Raspberry Pi, and a vision system for autonomous navigation, payload delivery, obstacle avoidance, and object tracking. Developed algorithms and integrated object detection and tracking using YOLOv5 and the DroneKit module to enable dynamic decision-making during flight. Embedded machine learning capabilities in UAVs with a secondary onboard Raspberry Pi system.
+      </p>
+
+      <p class="media-sub-label">Images</p>
+      <div class="media-grid">
+        <img src="D:\NEW VOLUME D\Portfolio\drone img 1.jpg" style="width:80%;border-radius:4px;">
+        <img src="D:\NEW VOLUME D\Portfolio\drone img 2.jpg" style="width:110%;border-radius:4px;">
+      </div>
+
+      <p class="media-sub-label">Videos</p>
+
+  <div style="margin-top:20px; display:flex; justify-content:center;">
+    <video src="D:\NEW VOLUME D\Portfolio\drone vid 2.mp4" autoplay loop muted playsinline style="width:50%;border-radius:4px;"></video>
+</div>
+<p class="media-caption">A simple manual flight test where the drone's Maneuverability and Stability is tested by the pilot.</p>
+
+<div style="margin-top:20px; display:flex; justify-content:center;">
+    <video src="D:\NEW VOLUME D\Portfolio\drone vid 1.mp4" autoplay loop muted playsinline style="width:50%;border-radius:4px;"></video>
+</div>
+<p class="media-caption">An autonomous mission where the drone takes off from the home point, maneuvers to the drop point, drops the payload, and returns to home — fully autonomous, without any manual pilot inputs.</p>
+
+<div style="margin-top:20px; display:flex; justify-content:center;">
+    <video src="D:\NEW VOLUME D\Portfolio\drone vid 3.mp4" autoplay loop muted playsinline style="width:50%;border-radius:4px;"></video>
+</div>
+<p class="media-caption">A dynamic object detection and tracking system using a YOLO-based model identifies QR codes at the drop site in real time. The detected QR code's position is used to compute positional error, which feeds a PID control algorithm to generate corrective motion commands — enabling the drone to autonomously align and stabilise directly above the QR code for precise positioning.</p>
+
+<div style="margin-top:20px; display:flex; justify-content:center;">
+  <video src="D:\NEW VOLUME D\Portfolio\drone vid 4.mp4" autoplay loop muted playsinline style="width:50%;border-radius:4px;"></video>
+  </div>
+<p class="media-caption">A Search and Rescue (SAR) drone system autonomously monitors disaster zones using onboard vision algorithms to detect casualties in real time. When a human is identified, the drone retrieves precise GPS coordinates and transmits geotagged data to a ground control station via telemetry links — enabling rescue teams to quickly locate and reach victims.</p>
+</div>
+
+    <!-- Project 2 -->
+    <div class="project-item">
+      <p class="project-num">02</p>
+      <h3 class="project-name">Home Automation with Gesture Control</h3>
+      <p class="project-desc">
+        <ul class="exp-list">
+	  <li> Built a Gesture based Home Automation prototype using an ESP32 and a Camera module.</li>
+	  <li> The system uses computer vision to detect specific hand gestures in real-time for controlling multiple appliances.</li>
+	  <li> When a gesture is recognized, the system sends a command to the ESP32 to switch the connected LEDs or the fan on or off. Each component repsonds individually based on specific palm or finger movements.</li>
+	  <li> The camera captures the movement and processes the gesture data, which is then transmitted to the ESP32 to physically toggle the power state of the appliances.</li>
+	</ul>
+      </p>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="project-item">
+      <p class="project-num">03</p>
+      <h3 class="project-name">QR Code Detection</h3>
+      <p class="project-desc">
+        <ul class="exp-list">
+	  <li> Developed a custom QR Code Detection model. </li>
+	  <li> The dataset consists of Static, Dynamic and Empty images which were captured in various lighting conditions and angles. </li>
+	  <li> All images were annotated and processed in Roboflow to create a training dataset. </li>
+	  <li> Training dataset was exported to Google Colab to train a YOLOv5 model for object detection. </li>
+	  <li> The training weights can be integrated into python scripts to enable real time QR code detection through a camera feed. </li>
+      </p>
+      <p class="media-sub-label">Images</p>
+      <div class="media-grid">
+        <img src="D:\NEW VOLUME D\Portfolio\detection1.jpg" style="width:100%;border-radius:4px;">
+        <img src="D:\NEW VOLUME D\Portfolio\detection2.jpg" style="width:75%;border-radius:4px;">
+      </div>
+      <div class="media-grid">
+        <img src="D:\NEW VOLUME D\Portfolio\Metrics .png" style="width:100%;border-radius:4px;">
+        <img src="D:\NEW VOLUME D\Portfolio\Model Performance.png" style="width:130%;border-radius:4px;">
+      </div>
+    </div>
+
+    <!-- Project 4 -->
+    <div class="project-item">
+      <p class="project-num">04</p>
+      <h3 class="project-name">POINTIT!</h3>
+      <p class="project-desc">
+        <ul class="exp-list">
+	  <li> Developed a robot naigation system that enables a bot to move to a location based on a human's pointing gestures. </li>
+	  <li> The system uses a standard RGB Camera and the Mediapipe framework to detect the user's shoulder and finger positions in real time. </li>
+	  <li> Based on the direction of the pointing finger, the software calculates and projects a virtual ray towards the floor to determine the target coordinates. </li>
+	  <li> The obtained target coordinates are sent as navigation commands to the robot. </li>
+	  <li> With the help of an IMU sensor, the robot adjusts its orientation and moves towards the target coordinates. </li>
+	</ul>
+      </p>
+      <p class="media-sub-label">Images</p>
+        <img src="D:\NEW VOLUME D\Portfolio\pointit1.jpeg" style="width:80%;border-radius:4px;">
+      </div>
+    
+
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <p class="section-label">Achievements</p>
+
+    <div class="achievement-item">
+      <h3 class="ach-title">Participated in Autonomous Drone Development Challenge</h3>
+      <p class="ach-desc">National level competition conducted by Southern Automotive Engineers society (SAE) - Autonomous Drone Development Challenge (ADDC). Our team secured 13th place on the second edition of the event (2023-2024)</p>
+      <img class="ach-img" src="D:\NEW VOLUME D\Portfolio\ach1.jpg" alt="addc">
+    </div>
+
+    <div class="achievement-item">
+      <h3 class="ach-title">Smart India Hackathon (SIH-2024) Finalist</h3>
+      <p class="ach-desc">Our team (Drone Commanders) got selected as the finalist for the Smart India Hackathon 2024 in hardware category on the theme disaster management drone.</p>
+      <img class="ach-img" src="D:\NEW VOLUME D\Portfolio\ach2.jpg" alt="sih">
+    </div>
+
+    <div class="achievement-item">
+      <h3 class="ach-title">Published a Journal on Search and Rescue Drones</h3>
+      <p class="ach-desc">Proposed a Drone-based solution to autonomously detect and locate survivors in disaster stricken zones using onboard GPS and vision systems, enabling faster and more efficient rescue operations with minimal human intervention.<br>
+<b>No.202541007293 A</b></p>
+      <img class="ach-img" src="D:\NEW VOLUME D\Portfolio\ach3.jpg" alt="patent">
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Contact</p>
+    <h2 class="contact-heading">Get in touch</h2>
+    <p class="contact-text">Whether you have an opportunity, a project idea, or just want to say hello — feel free to reach out. I'll get back to you promptly.</p>
+    <div class="contact-links-big">
+      <a href="mailto:dsanthoshkumaroff@gmail.com" class="contact-link-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        dsanthoshkumaroff@gmail.com
+      </a>
+      <a href="tel:+918220999104" class="contact-link-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 10.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 0h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 7.91a16 16 0 0 0 6 6l.77-.77a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +91 82209 99104
+      </a>
+      <a href="https://www.linkedin.com/in/santhosh-kumar-d-457bb131b/" target="_blank" class="contact-link-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        linkedin.com/in/santhosh-kumar-d-457bb131b
+      </a>
+      <a href="https://github.com/Santhoshkumar-44" target="_blank" class="contact-link-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        github.com/Santhoshkumar-44
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    Santhosh Kumar D &nbsp;·&nbsp; <span id="yr"></span>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
